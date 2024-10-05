@@ -279,3 +279,223 @@ textArea.onblur = function () {
     textArea.placeholder = "Write Your Message";
   }
 };
+
+let submitButton = document.querySelector("#submit");
+// swal("Enter Valid Username !");
+
+// submitButton.onclick = function (event) {
+//   event.preventDefault();
+//   formValidation();
+// };
+
+//  let theEmailField = document.querySelector('input[name="email"]';
+
+//   theEmailField.onkeyup=function(){
+//     formValidation()
+//   }
+
+// formInputs.forEach(input=>formValidation(input))
+
+let submitFlag = false;
+submitButton.onclick = function (event) {
+  if (submitFlag === false) {
+    event.preventDefault();
+  }
+};
+
+formInputs.forEach((input) => {
+  input.onkeyup = function (e) {
+    if (input.name === "username") {
+      if (input.value === "") {
+        input.previousElementSibling.textContent = "username is required";
+        submitFlag = false;
+      } else {
+        input.previousElementSibling.textContent = "";
+        submitFlag = true;
+      }
+    } else if (input.name === "phone") {
+      if (input.value === "") {
+        submitFlag = false;
+        input.previousElementSibling.textContent = "phone number is required";
+      } else {
+        if (input.value.length !== 11) {
+          input.previousElementSibling.textContent =
+            "phone number must be 11 digit";
+          submitFlag = false;
+        } else {
+          input.previousElementSibling.textContent = "";
+          submitFlag = true;
+        }
+      }
+    } else if (input.name === "email") {
+      if (input.value === "") {
+        input.previousElementSibling.textContent = "email is required";
+        submitFlag = false;
+      } else {
+        //validate email
+
+        let emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.]+\.[a-zA-Z]{2,}$/;
+        if (emailRegex.test(input.value)) {
+          input.previousElementSibling.textContent = "";
+          submitFlag = true;
+        } else {
+          input.previousElementSibling.textContent = "invalid email address";
+          submitFlag = false;
+        }
+      }
+    } else if (input.name === "subject") {
+      if (input.value === "") {
+        submitFlag = false;
+        input.previousElementSibling.textContent = "subject is required";
+      } else {
+        input.previousElementSibling.textContent = "";
+        submitFlag = true;
+      }
+    }
+  };
+});
+
+textArea.onkeyup = function () {
+  if (textArea.value !== "") {
+    textArea.previousElementSibling.textContent = "";
+  } else {
+    textArea.previousElementSibling.textContent = "your message is required";
+  }
+};
+
+// let userInput = document.querySelector('input[name="username"]');
+// userInput.onkeyup = function () {
+//   if (userInput.value !== "") {
+//     userInput.previousElementSibling.textContent = "";
+//   } else {
+//     userInput.previousElementSibling.textContent = "username is required";
+//   }
+// };
+
+// let mailInput = document.querySelector('input[name="username"]');
+// mailInput.onkeyup = function () {
+//   if (mailInput.value !== "") {
+//     mailInput.previousElementSibling.textContent = "";
+//   } else {
+//     mailInput.previousElementSibling.textContent = "email is required";
+//   }
+// };
+// let phoneInput = document.querySelector('input[name="phone"]');
+// phoneInput.onkeyup = function () {
+//   if (phoneInput.value !== "") {
+//     phoneInput.previousElementSibling.textContent = "";
+//   } else {
+//     phoneInput.previousElementSibling.textContent = "email is required";
+//   }
+// };
+
+// let subjectInput = document.querySelector('input[name="subject"]');
+// subjectInput.onkeyup = function () {
+//   if (subjectInput.value !== "") {
+//     subjectInput.previousElementSibling.textContent = "";
+//   } else {
+//     subjectInput.previousElementSibling.textContent = "subject is required";
+//   }
+// };
+
+// textArea.onkeyup = function () {
+//   if (textArea.value !== "") {
+//     textArea.previousElementSibling.textContent = "";
+//   } else {
+//     textArea.previousElementSibling.textContent = "your message is required";
+//   }
+// };
+
+// function formValidation() {
+//   for (let i = 0; i < formInputs.length; i++) {
+//     if (formInputs[i].value === "") {
+//       formInputs[
+//         i
+//       ].previousElementSibling.textContent = `${inputPlaceHolder[i]} is required`;
+//     } else if (formInputs[i].name === "phone") {
+//       if (formInputs[i].value.length !== 11) {
+//         formInputs[
+//           i
+//         ].previousElementSibling.textContent = `phone number must be 11 digit`;
+//       } else {
+//         formInputs[i].previousElementSibling.textContent = ``;
+//       }
+//     } else if (formInputs[i].name === "email") {
+//       let emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.]+\.[a-zA-Z]{2,}$/;
+//       if (emailRegex.test(formInputs[i].value)) {
+//         formInputs[i].previousElementSibling.textContent = ``;
+//       } else {
+//         formInputs[
+//           i
+//         ].previousElementSibling.textContent = `invalid email address`;
+//       }
+//     } else {
+//       formInputs[i].previousElementSibling.textContent = ``;
+//     }
+
+//     if (textArea.value === "") {
+//       textArea.previousElementSibling.textContent = `your msg is required`;
+//     } else {
+//       textArea.previousElementSibling.textContent = ``;
+//     }
+//   }
+// }
+// submitButton.onclick = function (event) {
+//   let flag = false;
+//   for (let i = 0; i < formInputs.length; i++) {
+//     if (formInputs[i].value === "") {
+//       flag = true;
+//     }
+//   }
+
+//   if (textArea.value === "") {
+//     flag = true;
+//   }
+
+//   if (flag === true) {
+//     event.preventDefault();
+//     swal(`All Fields Are Required `);
+//   } else {
+//     event.preventDefault();
+//     swal(`Successfully Operation `);
+//   }
+
+//   let phoneNumber = document.querySelector('input[name="phone"]');
+
+//   console.log(phoneNumber.value.length);
+//   if (phoneNumber.value.length != 11) {
+//     event.preventDefault();
+//     phoneNumber.value = "";
+//     phoneNumber.placeholder = "phone number must 11 digit";
+
+//   }
+//   //check email address pattern
+//   let theEmailField = document.querySelector('input[name="email"]');
+//   let emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.]+\.[a-zA-Z]{2,}$/;
+//   let regxFlag = emailRegex.test(theEmailField.value);
+//   console.log(theEmailField.value);
+
+//   console.log(regxFlag);
+//   if (regxFlag === true) {
+//     swal(`Email  Matched `);
+//     event.preventDefault();
+//   } else {
+//     swal(`Email Not Matched `);
+//   }
+
+//   // let theEmailField=document.querySelector("name='username'")
+
+//   // for (let i = 0; i < formInputs.length; i++) {
+//   //   formInputs[i].value = "";
+//   // }
+//   // textArea.value = "";
+// };
+
+// const emailRegex = /^\w+@\w+\.[a-zA-Z]{2,}$/;
+// let flag = emailRegex.test("meladgmail.com");
+// let flag = emailRegex.test("meladgmail.com");
+// console.log(flag);
+// console.log(theEmailField);
+// let theEmailField = document.querySelector('input[name="username"]');
+// console.log(theEmailField.value);
+// console.log(flag);
